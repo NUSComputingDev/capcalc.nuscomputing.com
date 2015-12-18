@@ -1,5 +1,84 @@
-<div class="row">
-    <div class="columns small-12">
-        <h3>CAP Calculator</h3>
+<section id="module-template" class="hide">
+  <div class="row module">
+    <div class="columns small-4">
+      <input type="text">
     </div>
+  </div>
+</section>
+
+<div class="row">
+  <div class="columns small-12">
+    <h5><strong>Previous Semesters</strong></h5>
+  </div>
 </div>
+
+<div class="row">
+  <div class="columns small-12">
+    <form action="javascript:saveDetails();">
+
+      <p>
+        1. Please enter your CAP of the previous semester.
+      </p>
+
+      <label>
+        Previous semester CAP:
+        <div class="row">
+          <div class="columns small-12 medium-6 large-3">
+            <input type="number" min="0" step="0.01" required placeholder="e.g. 3.58">
+          </div>
+        </div>
+      </label>
+
+      <p>
+        2. Please enter the number of letter-graded MCs taken up to the previous semester.
+        Note that previously S/U-ed modules and CS/CU modules are not considered letter-graded modules. Exclude them from the MC count.
+      </p>
+
+      <label>
+        Graded MCs up to previous semester:
+        <div class="row">
+          <div class="columns small-12 medium-6 large-3">
+            <input type="number" min="0" step="1" required placeholder="e.g. 46">
+          </div>
+        </div>
+      </label>
+
+      <label>
+        <input class="button" type="submit" value="Save">
+      </label>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <h5><strong>Current Semester</strong></h5>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <p>
+      Now add the modules that you have taken this semester. Include details of the grade and the number of MCs of each module.
+    </p>
+  </div>
+</div>
+
+<section>
+  <div class="row">
+    <div class="columns small-12">
+      <a class="button round" href="javascript:addNewModule();">Add Module</a>
+    </div>
+  </div>
+
+  <div id="modules">
+    <!--modules go here-->
+  </div>
+
+</section>
