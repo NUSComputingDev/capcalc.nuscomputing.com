@@ -1,6 +1,3 @@
-/**
- * Created by nick on 19/12/15.
- */
 function addNewModule() {
     $("#modules").append($("#module-template .module").clone());
     assignRemoveButton();
@@ -8,7 +5,7 @@ function addNewModule() {
 
 function saveDetails() {
     console.log("saving details");
-    // TODO to save in cookies
+    // TODO to save prev sem details in cookies
 }
 
 function calculate() {
@@ -45,6 +42,8 @@ function calculate() {
     overall.cap = 0.000;
 
     var prevCap = 0;
+    var prevGradedMc = 0;
+
     var prevCapUnparsed = $("#prev-cap").val();
     if (prevCapUnparsed != "") {
         prevCap = parseFloat($("#prev-cap").val());
@@ -53,7 +52,6 @@ function calculate() {
         }
     }
 
-    var prevGradedMc = 0;
     var prevGradedMcUnparsed = $("#prev-graded-mc").val();
     if (prevGradedMcUnparsed != "") {
         prevGradedMc = parseInt($("#prev-graded-mc").val());
@@ -63,10 +61,6 @@ function calculate() {
     }
 
     var prevGradePoint = prevCap * prevGradedMc;
-    console.log(prevGradePoint);
-    console.log(prevCap);
-    console.log(prevGradedMc);
-    console.log(prevGradePoint);
 
     overall.totalGradePoint = semester.totalGradePoint + prevGradePoint;
     overall.gradedMc = prevGradedMc + semester.gradedMc;
@@ -74,16 +68,15 @@ function calculate() {
         overall.cap = overall.totalGradePoint / overall.gradedMc;
     }
 
-    console.log(overall.cap);
-
     $("#overall-cap").html(overall.cap.toFixed(3));
     $("#overall-graded-mc").html(overall.gradedMc);
 
     // scroll to the results part
     $('html, body').animate({
         scrollTop: $("#calculation-results").offset().top
-    }, 800);
-    // highlight that shit
+    }, 500);
+
+    // highlight boxes
     $(".results-box").effect("highlight", {}, 800);
 }
 
@@ -105,6 +98,15 @@ function assignCalcButton() {
     });
 }
 
+function assignRecalcButton() {
+    $(".recalculate-button").on("click", function() {
+        // scroll to the modules part
+        $('html, body').animate({
+            scrollTop: $("#current-sem").offset().top
+        }, 500);
+    });
+}
+
 $(function() {
     var NUM_MODULES_TO_START_WITH = 5;
     for (var i = 0; i < NUM_MODULES_TO_START_WITH; i++) {
@@ -113,4 +115,5 @@ $(function() {
     assignRemoveButton();
     assignAddButton();
     assignCalcButton();
+    assignRecalcButton();
 });
