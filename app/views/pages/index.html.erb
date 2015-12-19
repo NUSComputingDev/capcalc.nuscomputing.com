@@ -2,45 +2,55 @@
 
 <div class="row">
   <div class="columns small-12">
-    <h5><strong>Previous Semesters</strong></h5>
+    <hr>
   </div>
 </div>
 
-<div class="row">
-  <div class="columns small-12">
-    <form action="javascript:saveDetails();">
+<section><!--PREVIOUS SEMESTER-->
 
-      <p>
-        1. Please enter your CAP up to the previous semester.
-      </p>
-
-      <label>
-        Previous CAP:
-        <div class="row">
-          <div class="columns small-12 medium-6 large-3">
-            <input type="number" min="0" step="0.01" required placeholder="e.g. 3.58">
-          </div>
-        </div>
-      </label>
-
-      <p>
-        2. Please enter the number of letter-graded MCs taken up to the previous semester.
-        <br>
-        <em>Note that previously S/U-ed modules and CS/CU modules are not considered letter-graded modules. Exclude them from the MC count.</em>
-      </p>
-
-      <label>
-        Graded MCs up to previous semester:
-        <div class="row">
-          <div class="columns small-12 medium-6 large-3">
-            <input type="number" min="0" step="1" required placeholder="e.g. 46">
-          </div>
-        </div>
-      </label>
-
-    </form>
+  <div class="row">
+    <div class="columns small-12">
+      <h5><strong>Previous Semesters</strong></h5>
+    </div>
   </div>
-</div>
+
+  <div class="row">
+    <div class="columns small-12">
+      <form>
+
+        <p>
+          1. Please enter your CAP up to the previous semester.
+        </p>
+
+        <label>
+          Previous CAP:
+          <div class="row">
+            <div class="columns small-12 medium-6 large-3">
+              <input type="number" min="0" step="0.01" placeholder="e.g. 3.58" id="prev-cap" required >
+            </div>
+          </div>
+        </label>
+
+        <p>
+          2. Please enter the number of letter-graded MCs taken up to the previous semester.
+          <br>
+          <em>Note that previously S/U-ed modules and CS/CU modules are not considered letter-graded modules. Exclude them from the MC count.</em>
+        </p>
+
+        <label>
+          Graded MCs up to previous semester:
+          <div class="row">
+            <div class="columns small-12 medium-6 large-3">
+              <input type="number" min="0" step="1" placeholder="e.g. 46" id="prev-graded-mc" required>
+            </div>
+          </div>
+        </label>
+
+      </form>
+    </div>
+  </div>
+
+</section><!--END PREVIOUS SEMESTER-->
 
 <div class="row">
   <div class="columns small-12">
@@ -48,29 +58,86 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="columns small-12">
-    <h5><strong>Current Semester</strong></h5>
-  </div>
-</div>
+<section><!--CURRENT SEMESTER-->
 
-<div class="row">
-  <div class="columns small-12">
-    <p>
-      Now add the modules that you have taken this semester. Include details of the grade and the number of MCs of each module.
-    </p>
-  </div>
-</div>
-
-<section>
   <div class="row">
     <div class="columns small-12">
-      <a class="button round" href="javascript:addNewModule();">Add Module</a>
+      <h5><strong>Current Semester</strong></h5>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns small-12">
+      <p>
+        3. Now add the modules that you have taken this semester. Include details of the grade and the number of MCs of each module.
+      </p>
+    </div>
+    <div class="columns small-12">
+      <div class="button round expand add-button">Add Module</div>
     </div>
   </div>
 
   <div id="modules">
-    <!--modules go here-->
+  </div>
+
+  <div class="row">
+    <div class="columns small-12">
+      <div class="button round expand calculate-button success">Calculate!</div>
+    </div>
+  </div>
+
+</section><!--END CURRENT SEMESTER-->
+
+<div class="row">
+  <div class="columns small-12">
+    <hr>
+  </div>
+</div>
+
+<section id="calculation-results"><!--CALCULATION RESULT-->
+
+  <div class="row">
+    <div class="columns small-12">
+      <h5><strong>Calculation Results</strong></h5>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="columns small-12 medium-6">
+      <div class="panel radius results-box">
+        <h5><strong>Current Semester</strong></h5>
+        <hr>
+        <h6>CAP</h6>
+        <p>
+          <strong><span id="semester-cap">0.000</span></strong>
+        </p>
+        <h6>Graded MCs</h6>
+        <p>
+          <strong><span id="semester-graded-mc">0</span></strong>
+        </p>
+        <h6>Total MCs</h6>
+        <p>
+          <strong><span id="semester-total-mc">0</span></strong>
+        </p>
+      </div>
+    </div>
+
+    <div class="columns small-12 medium-6">
+      <div class="panel callout radius results-box">
+        <h5><strong>Overall</strong></h5>
+        <hr>
+        <h6>CAP</h6>
+        <p>
+          <strong><span id="overall-cap">0.000</span></strong>
+        </p>
+        <h6>Graded MCs</h6>
+        <p>
+          <strong><span id="overall-graded-mc">0</span></strong>
+        </p>
+      </div>
+    </div>
+
   </div>
 
 </section>
