@@ -1,0 +1,17 @@
+.module .module-inner {
+    border: 1px solid black;
+    margin-bottom: 10px;;
+}
+
+.module .remove-button-wrapper {
+    /*width: 100%;*/
+    text-align: right;
+}
+
+.remove-button {
+    color:red;
+}
+
+.remove-button:hover {
+    /*cursor: pointer;*/
+}
