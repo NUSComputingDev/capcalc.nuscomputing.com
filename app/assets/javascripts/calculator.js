@@ -1,11 +1,30 @@
 function addNewModule() {
-    $("#modules").append($("#module-template .module").clone());
+    $("#modules").prepend($("#module-template .module").clone().show("fade", {}, 300));
     assignRemoveButton();
 }
 
-function saveDetails() {
-    console.log("saving details");
-    // TODO to save prev sem details in cookies
+function getPrevCap() {
+    var prevCap = "";
+    var prevCapUnparsed = $("#prev-cap").val();
+    if (prevCapUnparsed !== "") {
+        prevCap = parseFloat(prevCapUnparsed);
+        if (prevCap < 0) {
+            prevCap = 0;
+        }
+    }
+    return prevCap;
+}
+
+function getPrevGradedMc() {
+    var prevGradedMc = 0;
+    var prevGradedMcUnparsed = $("#prev-graded-mc").val();
+    if (prevGradedMcUnparsed !== "") {
+        prevGradedMc = parseInt($("#prev-graded-mc").val());
+        if (prevGradedMc < 0) {
+            prevGradedMc = 0;
+        }
+    }
+    return prevGradedMc;
 }
 
 function calculate() {
@@ -41,25 +60,12 @@ function calculate() {
     overall.totalGradePoint = 0.000;
     overall.cap = 0.000;
 
-    var prevCap = 0;
-    var prevGradedMc = 0;
-
-    var prevCapUnparsed = $("#prev-cap").val();
-    if (prevCapUnparsed != "") {
-        prevCap = parseFloat($("#prev-cap").val());
-        if (prevCap < 0) {
-            prevCap = 0;
-        }
+    var prevCap = getPrevCap();
+    var prevGradedMc = getPrevGradedMc();
+    if (prevCap === 0 || prevGradedMc === 0) {
+        prevCap = 0;
+        prevGradedMc = 0;
     }
-
-    var prevGradedMcUnparsed = $("#prev-graded-mc").val();
-    if (prevGradedMcUnparsed != "") {
-        prevGradedMc = parseInt($("#prev-graded-mc").val());
-        if (prevGradedMc < 0) {
-            prevGradedMc = 0;
-        }
-    }
-
     var prevGradePoint = prevCap * prevGradedMc;
 
     overall.totalGradePoint = semester.totalGradePoint + prevGradePoint;
@@ -82,7 +88,12 @@ function calculate() {
 
 function assignRemoveButton() {
     $(".remove-button").on("click", function() {
-        $(this).closest(".module").remove();
+        $(this).closest(".module").hide("blind",
+            {},
+            300,
+            function() {
+                $(this).remove();
+            });
     });
 }
 
@@ -108,10 +119,39 @@ function assignRecalcButton() {
 }
 
 $(function() {
+
+    // initialise prev sem details with saved values
+    if (localStorage.getItem("existsPrev") !== null) {
+        $("#prev-cap").val(localStorage.getItem("prevCap"));
+        $("#prev-graded-mc").val(localStorage.getItem("prevGradedMc"));
+    }
+
+    // set the onchange for the fields
+    $("#prev-cap").change(function() {
+        localStorage.setItem("prevCap", getPrevCap());
+        if (localStorage.getItem("prevCap") !== 0) {
+            localStorage.setItem("existsPrev", true);
+        } else {
+            localStorage.removeItem("existsPrev");
+        }
+    });
+    $("#prev-graded-mc").change(function() {
+        localStorage.setItem("prevGradedMc", getPrevGradedMc());
+        if (localStorage.getItem("prevGradedMc") !== 0) {
+            localStorage.setItem("existsPrev", true);
+        } else {
+            localStorage.removeItem("existsPrev");
+        }
+    });
+
+
+    // initialise with some modules
     var NUM_MODULES_TO_START_WITH = 5;
     for (var i = 0; i < NUM_MODULES_TO_START_WITH; i++) {
         addNewModule();
     }
+
+    // assign all the buttons onclicks
     assignRemoveButton();
     assignAddButton();
     assignCalcButton();
